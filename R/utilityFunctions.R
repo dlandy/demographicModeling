@@ -40,3 +40,12 @@ logOddsInverse <- function(x) {
   d <- e/(1+e)
   d
 }
+
+
+
+
+
+
+
+
+
