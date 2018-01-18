@@ -14,10 +14,10 @@
 #' logOdds(1:100/100)
 logOdds <- function(x, smallValue = 10^-5){ # Assumes x is between 0 and 1
   if(max(x)>1){
-    stop("Some inputs to logOdds were >1")
+    stop("Some inputs to logOdds were >1: ", max(x))
   }
   if(min(x)<0){
-    stop("Some inputs to logOdds were <0")
+    stop("Some inputs to logOdds were <0: ", min(x))
   }
   x[x>=1-smallValue] <- 1-smallValue
   x[x<=smallValue] <- smallValue
@@ -25,6 +25,15 @@ logOdds <- function(x, smallValue = 10^-5){ # Assumes x is between 0 and 1
   d
 }
 
+#' logOddsInverse
+#' 
+#' This function is a transformation function that inverts the log odds.
+#' It's appropriate for mapping (-inf, inf) :->  (0, 1)
+#' @param x a vector of positive values, between 0 and inf
+#' @return a vector containing transformed values
+#' @export
+#' @examples
+#' logOdds(1:100/100)
 logOddsInverse <- function(x) {
   # d <- log(x/(1-x))
   e <- exp(x)
