@@ -32,6 +32,8 @@ combine.samples <- function(sample1, sample2) {
 #' grabFromSamples(samples, c('muPrior', 'tauPrior'))  # returns tibble
 grabFromSamples <- function(samples, pattern){
   if(length(pattern)==1){
+    items <-grep(pattern, names(samples))
+    if(length(items)==0){ stop("All pattern names must appear in samples")}
     return(samples[,grep(pattern, names(samples))])
   } else if(length(pattern) > 1){
       map_dfc(pattern, function(x) {
