@@ -2,6 +2,7 @@
 
 export(combine.samples)
 export(gammaFromModeSD)
+export(grabFromSamples)
 export(logOdds)
 export(logOddsInverse)
 export(par.trace.samples)

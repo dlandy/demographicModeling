@@ -1,11 +1,16 @@
 Package: demographicModeling
-Title: What the Package Does (one line, title case)
+Title: Supports Bayesian modeling of Qualtrics demographic data
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("David", "Landy", email = "dhlandy@gmail.com", role = c("aut", "cre"))
+Description: This package rolls together supports functions used primarily in the TIM line of research, but in all the other stuff Landy’s currently doing to analyze demographic estimation data.
 Depends: R (>= 3.3.3)
-License: What license is it under?
+License: WTFPL
 Encoding: UTF-8
 LazyData: true
+Imports:
+    tidyverse,
+    magrittr,
+    tibble,
+    doMC
 RoxygenNote: 6.0.1.9000
 Suggests: testthat

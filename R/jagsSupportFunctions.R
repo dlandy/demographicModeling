@@ -19,6 +19,31 @@ combine.samples <- function(sample1, sample2) {
 }
 
 
+
+#' grabFromSamples
+#' 
+#' collects a parameter from an mcmc objects.  
+#' @param samples the mcmc sample to collect samples from
+#' @param pattern A naming pattern to be extracted from the mcmc object, or a vector of such names
+#' @return if pattern is a single string, returns a vector. Otherwise, returns a tibble of tectors
+#' @export
+#' @examples
+#' grabFromSamples(samples, 'muPrior') # returns vector
+#' grabFromSamples(samples, c('muPrior', 'tauPrior'))  # returns tibble
+grabFromSamples <- function(samples, pattern){
+  if(length(pattern)==1){
+    print('hi?')
+    return(samples[,grep(pattern, names(samples))])
+  } else if(length(pattern) > 1){
+    print("hi")
+      map_dfc(pattern, function(x) {
+        enframe(grabFromSamples(samples, x), value=x)[x]
+        })
+    
+  }
+}
+
+
 #' par.trace.samples
 #' 
 #' Composite function that handles creating, initing, and running jags models in parallel, then collects
