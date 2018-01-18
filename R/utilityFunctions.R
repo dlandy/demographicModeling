@@ -44,6 +44,29 @@ logOddsInverse <- function(x) {
 
 
 
+#' gammaFromModeSD
+#' 
+#' This function takes a mode and SD, and generates the corresponding shape and rate parameters that 
+#' produce a gamma with that set of values.
+#' @param mode the desired mode value
+#' @param sd the desired sd
+#' @return a vector with the shape and rate 
+#' @export
+#' @examples
+#' gammaFromModeSD(1, 1)
+gammaFromModeSD <- function(mode = .05, sd = 10){
+  
+  # Here are the corresponding rate and shape parameter values:
+  ra = ( mode + sqrt( mode^2 + 4*sd^2 ) ) / ( 2 * sd^2 )
+  sh = 1 + mode * ra 
+  
+  plot(0:1000/100, dgamma(0:1000/100, shape=sh, rate=ra))
+  c(sh, ra)
+}
+
+
+
+
 
 
 
