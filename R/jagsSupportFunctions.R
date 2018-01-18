@@ -32,10 +32,8 @@ combine.samples <- function(sample1, sample2) {
 #' grabFromSamples(samples, c('muPrior', 'tauPrior'))  # returns tibble
 grabFromSamples <- function(samples, pattern){
   if(length(pattern)==1){
-    print('hi?')
     return(samples[,grep(pattern, names(samples))])
   } else if(length(pattern) > 1){
-    print("hi")
       map_dfc(pattern, function(x) {
         enframe(grabFromSamples(samples, x), value=x)[x]
         })
