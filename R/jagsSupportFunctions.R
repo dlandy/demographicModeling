@@ -25,19 +25,21 @@ combine.samples <- function(sample1, sample2) {
 #' collects a parameter from an mcmc objects.  
 #' @param samples the mcmc sample to collect samples from
 #' @param pattern A naming pattern to be extracted from the mcmc object, or a vector of such names
+#' @param name A name or set of names that 
 #' @return if pattern is a single string, returns a vector. Otherwise, returns a tibble of tectors
 #' @export
 #' @examples
 #' grabFromSamples(samples, 'muPrior') # returns vector
 #' grabFromSamples(samples, c('muPrior', 'tauPrior'))  # returns tibble
-grabFromSamples <- function(samples, pattern){
+grabFromSamples <- function(samples, pattern, name=pattern){
   if(length(pattern)==1){
     items <-grep(pattern, names(samples))
     if(length(items)==0){ stop("All pattern names must appear in samples")}
     return(samples[,grep(pattern, names(samples))])
   } else if(length(pattern) > 1){
-      map_dfc(pattern, function(x) {
-        enframe(grabFromSamples(samples, x), value=x)[x]
+    
+      map2_dfc(pattern, name, function(x, y) {
+        enframe(grabFromSamples(samples, x),value=y)[y]
         })
     
   }

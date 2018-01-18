@@ -4,12 +4,14 @@
 \alias{grabFromSamples}
 \title{grabFromSamples}
 \usage{
-grabFromSamples(samples, pattern)
+grabFromSamples(samples, pattern, name = pattern)
 }
 \arguments{
 \item{samples}{the mcmc sample to collect samples from}
 
 \item{pattern}{A naming pattern to be extracted from the mcmc object, or a vector of such names}
+
+\item{name}{A name or set of names that}
 }
 \value{
 if pattern is a single string, returns a vector. Otherwise, returns a tibble of tectors

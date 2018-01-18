@@ -65,6 +65,24 @@ gammaFromModeSD <- function(mode = .05, sd = 10){
 }
 
 
+#' calcPK
+#' 
+#' Calculate political knowledge
+#' @param veep
+#' @param court
+#' @param veto
+#' @param controller
+#' @param conservative
+#' @return a vector with the shape and rate 
+#' @export
+calcPK <- function(veep, court, veto, controller, conservative, year=2018){
+  (gsub("oftheusa|oftheus|oftheunitedstates|ofusa|ofus|oftheu.s.|ofamerica|us", "",
+        tolower(gsub(" ", "", veep))) %in% veepList)
+  +  (court %in% c("The Supreme Court"))
+  +  (veto %in% vetoList)
+  +  (controller %in% c("Republican Party"))
+  +  (conservative %in% c("Republican Party"))
+}
 
 
 
