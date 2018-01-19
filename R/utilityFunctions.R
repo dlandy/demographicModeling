@@ -1,4 +1,5 @@
 # Utility functions
+library(doMC)
 
 #' logOdds
 #' 
@@ -76,12 +77,28 @@ gammaFromModeSD <- function(mode = .05, sd = 10){
 #' @return a vector with the shape and rate 
 #' @export
 calcPK <- function(veep, court, veto, controller, conservative, year=2018){
-  (gsub("oftheusa|oftheus|oftheunitedstates|ofusa|ofus|oftheu.s.|ofamerica|us", "",
+  veepList <- c("vicepresident", "vp", "vice-president", "vicepresidency", 
+                "vice",  "viceprisedent", "47thvicepresident", "veep", "vicepresident?",
+                "vicepresiden", "viceprisident","vicepresident." , "47th and current Vice President of the United States", "Exiting vice president","48thvicepresident", "48th and current Vice President of the United States", "48thandcurrentvicepresident"
+                
+  )
+  
+  vetoList <- c("2/3", "66", "67", "66%", "two thirds", 
+                "A two-thirds majority vote in both the House of Representatives and in the Senate", 
+                "Two-thirds", "67%",  "2/3s", "two-thirds vote", "Two thirds", 
+                "2/3RDS" , ".66", "2 thirds", "66.67", "two-thirds",  "2/3rd", 
+                "two third", "2/3rds", "Two Thirds",  "two thirds", "Two-Thirds","2 /3", 
+                "2/3rds majority", "66.6", "A two-thirds majority", "3-Feb", "two-thirds majority", "Two-thirds", "2 out of 3 ", "two thirds", "66"
+  ) #Hand-coded by inspection of all correct responses
+  
+  
+  
+  ((gsub("oftheusa|oftheus|oftheunitedstates|ofusa|ofus|oftheu.s.|ofamerica|us", "",
         tolower(gsub(" ", "", veep))) %in% veepList)
   +  (court %in% c("The Supreme Court"))
   +  (veto %in% vetoList)
   +  (controller %in% c("Republican Party"))
-  +  (conservative %in% c("Republican Party"))
+  +  (conservative %in% c("Republican Party")))
 }
 
 
