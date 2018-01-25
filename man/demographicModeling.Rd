@@ -17,7 +17,7 @@ over the kinds of data we typically collect from qualtrics, ipsosMORI, and GSS.
 
 It includes a few other convenience functions (such as gammaFromModeSD) that probably belong elsewhere.
 
-To apply the psychophysical functions we typically apply to these kinds of situations, install dlandy/classicPsychophysics
+To apply the psychophysical functions we typically apply to these kinds of situations, install dlandy/psychophysicalModels
 
 To see a full list of functions, do ls("package:demographicModeling")
 }
