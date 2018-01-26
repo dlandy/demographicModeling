@@ -152,15 +152,16 @@ createChoropleth <- function(data){
 #' @examples
 #' printQuestionParameterPDF()
 printQuestionParameterPDF <- function(graphs, file="parameters.pdf",  items=c(1:3)){
- if(length(items)!=3){
-   stop("You must pass exactly three items to print")
+ if(length(items)>3){
+   stop("You must pass no more than three items to print")
  } 
+  n = length(items)
   pdf(file, width=12, height=4.5)
   grid.newpage()
-  pushViewport(viewport(layout = grid.layout(1,3, widths=c(1, .75,.75 ))))
-  print(graphs[[items[1]]], vp = vplayout(1, 1))
-  print(graphs[[items[2]]], vp = vplayout(1, 2))
-  print(graphs[[items[3]]], vp = vplayout(1, 3))
+  pushViewport(viewport(layout = grid.layout(1,n, widths=c(1, rep(0.75, n-1) ))))
+  for(i in 1:n){
+    print(graphs[[items[i]]], vp = vplayout(1, i))
+  }
   dev.off()
 }
 
@@ -240,7 +241,8 @@ createSubjectFileFromQualtricsDemographicData <- function(data, dataProcessed="n
     
     
     education <- factor(as.character(d$education), levels=c( "less than high school credential"  , "high-school credential", "some post-high-school no bachelor", "bachelor"   , "graduate degree" ), ordered=T) 
-    
+          
+          
     data.frame(
       id = mean(d$id)
       , pk =  (gsub("oftheusa|oftheus|oftheunitedstates|ofusa|ofus|oftheu.s.|ofamerica|us", "",
@@ -253,7 +255,7 @@ createSubjectFileFromQualtricsDemographicData <- function(data, dataProcessed="n
       , nIdeology = nIdeology
       , gender = gender
       , education = education
-      , correlation = ifelse(dataProcessed=="none", 0, with(filter(dataProcessed, id==mean(d$id)), cor.test(question, response)$est))
+      , correlation = ifelse(max(dataProcessed=="none"), 0, unique(with(filter(dataProcessed, id==mean(d$id)), cor.test(question, response)$est)))
     )
   }
   )
