@@ -11,11 +11,12 @@ printQuestionParameterPDF(graphs, file = "parameters.pdf", items = c(1:3))
 
 \item{file}{the name of the pdf file to use}
 
-\item{items}{3 items, of those returned by createQuestionLevelProportionJudgmentPlots, to plot}
+\item{items}{3 items, of those returned by createQuestionLevelProportionJudgmentPlots, to plot. This is a vector
+of indices, with codes as follows: 1=crossNationalBias, 2=crossNationalLambda, 3=crossNationalTau, 4=biasTau, 5=residual}
 }
 \description{
 This function creates a pdf of your data. You must give it the output of a 
-call to createQuestionLevelProportionJudgmentPlots. and a set of 3 items
+call to createQuestionLevelProportionJudgmentPlots. and a set of n items;
 }
 \examples{
 printQuestionParameterPDF()

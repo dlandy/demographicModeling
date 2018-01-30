@@ -102,6 +102,21 @@ calcPK <- function(veep, court, veto, controller, conservative, year=2018){
 }
 
 
+#' sErrors
+#' 
+#' This function is a transformation function that takes the log odds
+#' By design, it is robust to the inclusion of the occasional 0,
+#' which it maps to a very small value, which can optionally be specified
+#' It's appropriate for mapping (0, 1):-> (-inf, inf).
+#' @param x a vector of  values,
+#' @return the standard error
+#' @export
+#' @examples
+#' sErrors(rnorm(100))
+sErrors <- function(x) sd(x, na.rm=TRUE)/sqrt(length(x))
+
+
+
 
 
 

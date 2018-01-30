@@ -1,10 +1,11 @@
 #' Create Question-Level Proportion Judgment Plots
 #'
 #' This function lets you create plots of the bias, ignorance, and cross-unit variability on a per-question basis,
-#' From results of a JAGS model.
+#' From results of a JAGS model.  If you want to print those on a common structure, feed the output into printQuestionParameterPDF
 #' @param data A dataframe containing the fields: question, bias, biasQCTau, biasLow, biasHigh, and ditto for lambda and tau
 #' @keywords proportionJudgments
 #' @export
+#' @seealso printQuestionParameterPDF
 #' @examples
 #' createQuestionLevelProportionJudgmentPlots()
 createQuestionLevelProportionJudgmentPlots <- function(data, year="", countryVariabilityBars=FALSE){
@@ -143,10 +144,11 @@ createChoropleth <- function(data){
 #' Create PDF's of parameters
 #'
 #' This function creates a pdf of your data. You must give it the output of a 
-#' call to createQuestionLevelProportionJudgmentPlots. and a set of 3 items
+#' call to createQuestionLevelProportionJudgmentPlots. and a set of n items;
 #' @param graphs the output of a call to createQuestionLevelProportionJudgmentPlots
 #' @param file the name of the pdf file to use
-#' @param items 3 items, of those returned by createQuestionLevelProportionJudgmentPlots, to plot
+#' @param items 3 items, of those returned by createQuestionLevelProportionJudgmentPlots, to plot. This is a vector
+#'  of indices, with codes as follows: 1=crossNationalBias, 2=crossNationalLambda, 3=crossNationalTau, 4=biasTau, 5=residual
 #' @keywords proportionJudgments
 #' @export
 #' @examples
