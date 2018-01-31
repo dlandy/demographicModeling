@@ -3,15 +3,16 @@
 #' This function lets you create plots of the bias, ignorance, and cross-unit variability on a per-question basis,
 #' From results of a JAGS model.  If you want to print those on a common structure, feed the output into printQuestionParameterPDF
 #' @param data A dataframe containing the fields: question, bias, biasQCTau, biasLow, biasHigh, and ditto for lambda and tau
+#' @param textsize A scaling to make the text in the plots bigger or smaller
 #' @keywords proportionJudgments
 #' @export
 #' @seealso printQuestionParameterPDF
 #' @examples
 #' createQuestionLevelProportionJudgmentPlots()
-createQuestionLevelProportionJudgmentPlots <- function(data, year="", countryVariabilityBars=FALSE){
+createQuestionLevelProportionJudgmentPlots <- function(data, year="", countryVariabilityBars=FALSE, textsize=20){
   crossNationalBias <- ggplot(data
                                   , aes(x=bias, y=question, xmin=bias-1/sqrt(biasQCTau), xmax=bias+1/sqrt(biasQCTau))) +
-    geom_errorbarh(height=0.5, aes(xmin=biasLow, xmax=biasHigh))+geom_point(size=3)+theme_bw()+ theme(text=element_text(size=20)) +
+    geom_errorbarh(height=0.5, aes(xmin=biasLow, xmax=biasHigh))+geom_point(size=3)+theme_bw()+ theme(text=element_text(size=textsize)) +
     scale_y_discrete(name=paste("Question ", year)) + scale_x_continuous(name="Bias")+
     coord_cartesian(xlim=c(-4,5))+geom_vline(xintercept = 0, color=rgb(0,.2,.5))
   if(countryVariabilityBars){
@@ -21,7 +22,7 @@ createQuestionLevelProportionJudgmentPlots <- function(data, year="", countryVar
 
   crossNationalLambda <- ggplot(data
                                     , aes(x=lambda, y=question, xmin=lambda-1/sqrt(lambdaQCTau), xmax=lambda+1/sqrt(lambdaQCTau))) +
-    geom_errorbarh(height=0.5, aes(xmin=lambdaLow, xmax=lambdaHigh))+geom_point(size=3)+theme_bw()+ theme(text=element_text(size=20)) +
+    geom_errorbarh(height=0.5, aes(xmin=lambdaLow, xmax=lambdaHigh))+geom_point(size=3)+theme_bw()+ theme(text=element_text(size=textsize)) +
     scale_y_discrete(paste("Question ", year)) + scale_x_continuous(name="Certainty")+
     coord_cartesian(xlim=c(0,1))+geom_vline(xintercept = 1, color=rgb(0,.2,.5))+theme(axis.title.y=element_blank(),
                                                                                       axis.text.y=element_blank(),
@@ -35,7 +36,7 @@ createQuestionLevelProportionJudgmentPlots <- function(data, year="", countryVar
 
   crossNationalTau <- ggplot(data
                                  , aes(x=tauQuestion, y=question, xmin=tauQuestion-1/sqrt(tauQCTau), xmax=tauQuestion+1/sqrt(tauQCTau))) +
-    geom_errorbarh(height=0.5, aes(xmin=(tauLow), xmax=(tauHigh)))+geom_point(size=3)+theme_bw()+ theme(text=element_text(size=20)) +
+    geom_errorbarh(height=0.5, aes(xmin=(tauLow), xmax=(tauHigh)))+geom_point(size=3)+theme_bw()+ theme(text=element_text(size=textsize)) +
     scale_y_discrete(paste("Question ", year)) + scale_x_continuous(name="Precision")+
     coord_cartesian(xlim=c(0,2.5))+geom_vline(xintercept = 0, color=rgb(0,.2,.5))+theme(axis.title.y=element_blank(),
                                                                                         axis.text.y=element_blank(),
@@ -46,7 +47,7 @@ createQuestionLevelProportionJudgmentPlots <- function(data, year="", countryVar
   }
   crossNationalBiasTau <- ggplot(data
                                      , aes(x=1/sqrt(biasQCTau), y=question, xmin=1/sqrt(biasQCTau), xmax=1/sqrt(biasQCTau))) +
-    geom_errorbarh(height=0.5, aes(xmin=(biasTauLowSD), xmax=(biasTauHighSD)))+geom_point(size=3)+theme_bw()+ theme(text=element_text(size=20)) +
+    geom_errorbarh(height=0.5, aes(xmin=(biasTauLowSD), xmax=(biasTauHighSD)))+geom_point(size=3)+theme_bw()+ theme(text=element_text(size=textsize)) +
     scale_y_discrete(paste("Question ", year)) + scale_x_continuous(name="Cross-National Variability")+
     coord_cartesian(xlim=c(0,2.5))+geom_vline(xintercept = 0, color=rgb(0,.2,.5))+theme(axis.title.y=element_blank(),
                                                                                         axis.text.y=element_blank(),
@@ -58,7 +59,7 @@ createQuestionLevelProportionJudgmentPlots <- function(data, year="", countryVar
   
   crossNationalResidual <- ggplot(data
                                       , aes(x=meanResid, y=question)) +
-    geom_errorbarh(height=0.5, aes(xmin=residLow, xmax=residHigh))+geom_point(size=3)+theme_bw()+ theme(text=element_text(size=20)) +
+    geom_errorbarh(height=0.5, aes(xmin=residLow, xmax=residHigh))+geom_point(size=3)+theme_bw()+ theme(text=element_text(size=textsize)) +
     scale_y_discrete(paste("Question ", year)) + scale_x_continuous(name="Residual")+
     coord_cartesian(xlim=c(-2,2))+geom_vline(xintercept = 0, color=rgb(0,.2,.5))
 
