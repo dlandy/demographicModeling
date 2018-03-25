@@ -2,6 +2,7 @@
 #'
 #' This function lets you create plots of the bias, ignorance, and cross-unit variability on a per-question basis,
 #' From results of a JAGS model.  If you want to print those on a common structure, feed the output into printQuestionParameterPDF
+#' The internal call is just to a set of ggplots, which work more or less as you'd expect.
 #' @param data A dataframe containing the fields: question, bias, biasQCTau, biasLow, biasHigh, and ditto for lambda and tau
 #' @param textsize A scaling to make the text in the plots bigger or smaller
 #' @keywords proportionJudgments

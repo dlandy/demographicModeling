@@ -14,10 +14,10 @@ library(doMC)
 #' @examples
 #' logOdds(1:100/100)
 logOdds <- function(x, smallValue = 10^-5){ # Assumes x is between 0 and 1
-  if(max(x)>1){
+  if(max(x, na.rm=T)>1){
     stop("Some inputs to logOdds were >1: ", max(x))
   }
-  if(min(x)<0){
+  if(min(x, na.rm=T)<0){
     stop("Some inputs to logOdds were <0: ", min(x))
   }
   x[x>=1-smallValue] <- 1-smallValue

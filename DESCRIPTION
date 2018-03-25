@@ -12,7 +12,8 @@ Imports:
     magrittr,
     tibble,
     purrr,
-    doMC
+    doMC,
+    grid
 RoxygenNote: 6.0.1.9000
 Suggests: 
     testthat,

@@ -5,10 +5,12 @@
 \title{Create Question-Level Proportion Judgment Plots}
 \usage{
 createQuestionLevelProportionJudgmentPlots(data, year = "",
-  countryVariabilityBars = FALSE)
+  countryVariabilityBars = FALSE, textsize = 20)
 }
 \arguments{
 \item{data}{A dataframe containing the fields: question, bias, biasQCTau, biasLow, biasHigh, and ditto for lambda and tau}
+
+\item{textsize}{A scaling to make the text in the plots bigger or smaller}
 }
 \description{
 This function lets you create plots of the bias, ignorance, and cross-unit variability on a per-question basis,
