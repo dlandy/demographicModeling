@@ -26,6 +26,39 @@ logOdds <- function(x, smallValue = 10^-5){ # Assumes x is between 0 and 1
   d
 }
 
+
+#' Calculate a t-test of a set of proportions, where the test is done in log odds space.
+#'
+#' Utility function to calculate the value of a within-t-test over the log-odds of the values.
+#' @param proportions A vector of proportions
+#' @export
+#' @examples
+#' logOddsT()
+logOddsT <- function(x,y) {
+  x[x==1] <- 0.995
+  x[x==0] <- 1-0.995
+  d <- t.test(log(x/(1-x))-log(y/(1-y)))$p.value
+  d
+}
+
+
+
+
+#' Calculate the mean of a set of proportions, where the mean is done in log odds space.
+#'
+#' Utility function to calculate the proportion whose log-odds is the mean of all the items in the input vector.
+#' @param proportions A vector of proportions
+#' @export
+#' @examples
+#' logOddsMean()
+logOddsMean <- function(proportions) {
+  proportions[proportions==1] <- 0.995
+  proportions[proportions==0] <- 1-0.995
+  d <- exp(mean(log(proportions/(1-proportions)), na.rm=T))
+  d/(d+1)
+}
+
+
 #' logOddsInverse
 #' 
 #' This function is a transformation function that inverts the log odds.
@@ -104,16 +137,16 @@ calcPK <- function(veep, court, veto, controller, conservative, year=2018){
 
 #' sErrors
 #' 
-#' This function is a transformation function that takes the log odds
-#' By design, it is robust to the inclusion of the occasional 0,
-#' which it maps to a very small value, which can optionally be specified
-#' It's appropriate for mapping (0, 1):-> (-inf, inf).
+#' This function takes the sd/sqrt(length)
 #' @param x a vector of  values,
 #' @return the standard error
 #' @export
 #' @examples
 #' sErrors(rnorm(100))
-sErrors <- function(x) sd(x, na.rm=TRUE)/sqrt(length(x))
+sErrors <- function(x){
+  
+ sd(x, na.rm=TRUE)/sqrt(length(x))
+}
 
 
 

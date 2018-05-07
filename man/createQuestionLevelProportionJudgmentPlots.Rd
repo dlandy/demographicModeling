@@ -15,6 +15,7 @@ createQuestionLevelProportionJudgmentPlots(data, year = "",
 \description{
 This function lets you create plots of the bias, ignorance, and cross-unit variability on a per-question basis,
 From results of a JAGS model.  If you want to print those on a common structure, feed the output into printQuestionParameterPDF
+The internal call is just to a set of ggplots, which work more or less as you'd expect.
 }
 \examples{
 createQuestionLevelProportionJudgmentPlots()

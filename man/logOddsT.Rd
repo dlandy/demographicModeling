@@ -13,5 +13,5 @@ logOddsT(x, y)
 Utility function to calculate the value of a within-t-test over the log-odds of the values.
 }
 \examples{
-logOddsMean()
+logOddsT()
 }

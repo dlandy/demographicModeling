@@ -13,10 +13,7 @@ sErrors(x)
 the standard error
 }
 \description{
-This function is a transformation function that takes the log odds
-By design, it is robust to the inclusion of the occasional 0,
-which it maps to a very small value, which can optionally be specified
-It's appropriate for mapping (0, 1):-> (-inf, inf).
+This function takes the sd/sqrt(length)
 }
 \examples{
 sErrors(rnorm(100))

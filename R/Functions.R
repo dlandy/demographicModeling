@@ -75,32 +75,24 @@ createQuestionLevelProportionJudgmentPlots <- function(data, year="", countryVar
 
 
 
-#' Calculate the mean of a set of proportions, where the mean is done in log odds space.
+
+
+#' Calculate the mean of a set of proportions, where the mean is done in log odds space. For use with Stat_summary
 #'
 #' Utility function to calculate the proportion whose log-odds is the mean of all the items in the input vector.
 #' @param proportions A vector of proportions
 #' @export
 #' @examples
-#' logOddsMean()
-logOddsMean <- function(proportions) {
+#' logOddsMean_se()
+logOddsMean_se <- function(proportions) {
   proportions[proportions==1] <- 0.995
   proportions[proportions==0] <- 1-0.995
-  d <- exp(mean(log(proportions/(1-proportions)), na.rm=T))
-  d/(d+1)
-}
-
-#' Calculate a t-test of a set of proportions, where the test is done in log odds space.
-#'
-#' Utility function to calculate the value of a within-t-test over the log-odds of the values.
-#' @param proportions A vector of proportions
-#' @export
-#' @examples
-#' logOddsMean()
-logOddsT <- function(x,y) {
-  x[x==1] <- 0.995
-  x[x==0] <- 1-0.995
-d <- t.test(log(x/(1-x))-log(y/(1-y)))$p.value
-  d
+  mLP <- mean(log(proportions/(1-proportions)), na.rm=T)
+  d <- exp(mLP)/(exp(mLP)+1)
+  err <- (sErrors(log(proportions/(1-proportions))))
+  errNeg <- exp(mLP-err)/(exp(mLP-err)+1)
+  errPos <- exp(mLP+err)/(exp(mLP+err)+1)
+  data.frame(y=d, ymin=errNeg, ymax=errPos)
 }
 
 
@@ -124,8 +116,8 @@ createChoropleth <- function(data){
   data$n <- 1:nrow(data)
   data$country = gsub("Great Britain", "United Kingdom"
                       , gsub("the US", "United States"
-                             , gsub("South Korea", "Korea, Republic of")
-                             , data$country))
+                             , gsub("South Korea", "Korea, Republic of"
+                             , data$country)))
   ISO3 <- wrld_simpl$ISO3
   names(ISO3) <- wrld_simpl$NAME
   data$id <- ISO3[as.character(data$country)]
